@@ -32,6 +32,7 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
+    proxy: "http://localhost:8000",
     overlay: {
       warnings: false,
       errors: true
