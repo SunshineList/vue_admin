@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+             label-position="left">
 
       <div class="title-container">
         <h3 class="title">后台管理系统</h3>
@@ -8,7 +9,7 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
         <el-input
           ref="username"
@@ -23,7 +24,7 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password" />
+          <svg-icon icon-class="password"/>
         </span>
         <el-input
           :key="passwordType"
@@ -37,66 +38,60 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
         </span>
       </el-form-item>
 
       <el-form-item prop="captcha">
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.captcha"
-          placeholder="验证码"
-          name="captcha"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+        <el-row>
+          <el-col :span="12">
+            <el-input v-model="loginForm.captcha" placeholder="验证码"></el-input>
+          </el-col>
+          <el-col :span="12">
+            <img v-if="captchaImage" :src="captchaImage" @click="fetchCaptcha" title="点击刷新验证码"
+                 style="height:47px;float:right;width: 70%"/>
+          </el-col>
+        </el-row>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
+                 @click.native.prevent="handleLogin">登录
+      </el-button>
 
     </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+
+import {fetchCaptcha} from '@/api/user'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
     return {
       loginForm: {
         username: 'admin',
-        password: '1234qwer'
+        password: '1234qwer',
+        captcha: '',
+        captcha_id: '',
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        username: [{required: true, trigger: 'blur', message: '用户名不能为空'}],
+        password: [{required: true, trigger: 'blur', message: '密码不能为空'}],
+        captcha: [{required: true, trigger: 'blur', message: '验证码不能为空'}]
+
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: "/",
+      captchaImage: ''
+
     }
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -115,20 +110,37 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
+        const user = {
+          username: this.loginForm.username,
+          password: this.loginForm.password,
+          captcha: this.loginForm.captcha,
+          captcha_id: this.loginForm.captcha_id
+        }
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          this.$store.dispatch('user/login', user).then(() => {
+            this.$router.push({path: this.redirect || '/'})
             this.loading = false
           }).catch(() => {
             this.loading = false
+            this.loginForm.captcha = ''
+            this.loginForm.uuid = ''
+            this.fetchCaptcha()
           })
         } else {
-          console.log('error submit!!')
+          console.log('提交错误!!')
           return false
         }
       })
+    },
+    async fetchCaptcha(){
+      const {captcha_id, image_base} = await fetchCaptcha()
+      this.captchaImage = image_base
+      this.loginForm.captcha_id = captcha_id
     }
+  },
+  created() {
+    this.fetchCaptcha()
   }
 }
 </script>
@@ -137,8 +149,8 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -181,14 +193,16 @@ $cursor: #fff;
 </style>
 
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background: url("../../assets/background.jpeg") no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
   overflow: hidden;
 
   .login-form {

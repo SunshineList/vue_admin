@@ -23,3 +23,11 @@ export function logout() {
     method: 'delete'
   })
 }
+
+// 获取验证码
+export function fetchCaptcha() {
+  return request({
+    url: '/user/captcha/',
+    method: 'post',
+  })
+}
