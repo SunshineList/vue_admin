@@ -51,16 +51,12 @@ const actions = {
   // get user info
   getInfo({commit, state}) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const {data} = response
+      getInfo(state.token).then(data => {
         if (!data) {
-          return reject('Verification failed, please Login again.')
+          return reject('未登录 请重新登陆')
         }
-
-        const {name, avatar} = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_NAME', data.name)
+        commit('SET_AVATAR', data.avatar)
         resolve(data)
       }).catch(error => {
         reject(error)

@@ -99,7 +99,7 @@ service.interceptors.response.use(
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        store.dispatch('LogOut').then(() => {
+        store.dispatch('user/logout').then(() => {
           location.reload() // 为了重新实例化vue-router对象 避免bug
         })
       })
@@ -108,7 +108,7 @@ service.interceptors.response.use(
       errMsg = error.response.data.error || '登录状态过期'
       // router.push({ path: '/401' })
       if (errMsg.indexOf('csrf') !== -1) {
-        store.dispatch('LogOut')
+        store.dispatch('user/logout')
         removeCsrfToken()
         removeSessionid()
         router.replace({ path: '/login' })
