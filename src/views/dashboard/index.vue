@@ -51,6 +51,22 @@
       </el-row>
     </el-card>
 
+    <el-col :span="12">
+      <el-card class="box-card" style="margin-top: 25px">
+        <div class="work">
+          <svg-icon icon-class="work" style="margin-left: 50%;transform: translateX(-50%);height: 216px; width: auto"/>
+        </div>
+      </el-card>
+    </el-col>
+
+    <el-col :span="12" style="float: right;">
+      <el-card class="box-card" style="margin-top: 25px">
+        <div class="work">
+          <svg-icon icon-class="work" style="margin-left: 50%;transform: translateX(-50%);height: 216px; width: auto"/>
+        </div>
+      </el-card>
+    </el-col>
+
   </div>
 </template>
 
