@@ -1,8 +1,9 @@
 import axios from 'axios'
 import router from '@/router'
-import { Notification, MessageBox } from 'element-ui'
+
 import store from '../store'
 import { getToken, removeCsrfToken, removeSessionid } from '@/utils/auth'
+import { ElMessageBox, ElNotification } from 'element-plus'
 
 console.log('process.env.BASE_API', process.env.VUE_APP_BASE_API)
 
@@ -62,26 +63,26 @@ service.interceptors.response.use(
     let errMsg = '出错了'
     if (!code) {
       errMsg = '请求超时'
-      // Notification.error({
+      // ElNotification.error({
       //   title: '错误',
       //   message: '请求超时!'
       // })
     } else if (code === 400 && error.response.data.user_id) {
       errMsg = error.response.data.error
-      MessageBox.confirm('密码已经过期,请修改密码', '系统提示', {
+      ElMessageBox.confirm('密码已经过期,请修改密码', '系统提示', {
         confirmButtonText: '修改密码',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         // 赶时间写了一个究极丑陋的嵌套
-        MessageBox.prompt('设置新密码', '提示', {
+        ElMessageBox.prompt('设置新密码', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           inputPattern: new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,30}'),
           inputErrorMessage: '密码需要包含大小写字母、数组与特殊字符'
         }).then(({ value }) => {
           // setOutTimePassword(error.response.data.user_id, value).then(result => {
-          MessageBox.alert('密码修改成功', '系统提示', {
+          ElMessageBox.alert('密码修改成功', '系统提示', {
             confirmButtonText: '确定',
             showClose: false
           }).then(() => {
@@ -94,7 +95,7 @@ service.interceptors.response.use(
       })
     } else if (code === 401) {
       errMsg = '登录状态过期'
-      MessageBox.confirm('登录状态过期了哦，您可以继续留在该页面，或者重新登录', '系统提示', {
+      ElMessageBox.confirm('登录状态过期了哦，您可以继续留在该页面，或者重新登录', '系统提示', {
         confirmButtonText: '重新登录',
         cancelButtonText: '取消',
         type: 'warning'
@@ -121,7 +122,7 @@ service.interceptors.response.use(
     if (code == 400 && error.response.data.user_id) {
       console.log('不弹窗')
     } else {
-      Notification.error({
+      ElNotification.error({
         title: '错误',
         message: errMsg,
         duration: 2500
