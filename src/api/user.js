@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
+
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: '/user/login/',
     method: 'post',
     data
   })
@@ -10,15 +11,25 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/user/info/',
     method: 'get',
-    params: { token }
+    headers: {
+      'Authorization': 'Token ' + token
+    }
   })
 }
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: '/user/login/',
+    method: 'delete'
+  })
+}
+
+// 获取验证码
+export function fetchCaptcha() {
+  return request({
+    url: '/user/captcha/',
+    method: 'post',
   })
 }
