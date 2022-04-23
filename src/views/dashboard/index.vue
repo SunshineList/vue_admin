@@ -73,6 +73,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import axios from "axios";
+import {getWeatherList} from '@/api/file'
 
 export default {
   name: 'Dashboard',
@@ -133,42 +134,36 @@ export default {
     },
 
     getTemp(city) {
-      let url = "http://wthrcdn.etouch.cn/weather_mini?city=" + city
-      axios.get(url).then((response) => {
-        this.temps = response.data.data.forecast
+      getWeatherList(city).then((response) => {
+        this.temps = response.data.forecast
         this.todayTemp = "今日" + this.temps[0].type + " " + this.temps[0].low + "~" + this.temps[0].high
-      }).catch((error) => {
-        console.log(error)
       })
     }
-
   },
 
-  components: {
-    'remote-js': {
-      render(createElement) {
-        return createElement('script', {attrs: {type: 'text/javascript', src: this.src}});
-      },
-      props: {
-        src: {type: String, required: true},
-      },
-    }
-  },
-
-  filters: {
-    handleFengli(value) {
-      let reg = /[1-9][0-9]*/g;
-      return value.match(reg) + "级"
+    components: {
+      'remote-js': {
+        render(createElement) {
+          return createElement('script', {attrs: {type: 'text/javascript', src: this.src}});
+        },
+        props: {
+          src: {type: String, required: true},
+        },
+      }
     },
-  },
 
-  created() {
-    setTimeout(() => {
-      this.getCity()
-      console.log(this.avatar_url)
-    }, 500)
-  }
+    filters: {
+      handleFengli(value) {
+        let reg = /[1-9][0-9]*/g;
+        return value.match(reg) + "级"
+      },
+    },
 
+    created() {
+      setTimeout(() => {
+        this.getCity()
+      }, 500)
+    }
 }
 </script>
 
