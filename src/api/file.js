@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getFileList(data){
+export function getFileList(data) {
   return request({
     url: '/common/file_list/',
     method: 'get',
@@ -8,7 +8,7 @@ export function getFileList(data){
   })
 }
 
-export function getWeatherList(data){
+export function getWeatherList(data) {
   return request({
     url: '/common/weather/',
     method: 'get',

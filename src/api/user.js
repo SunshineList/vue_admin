@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 
-
 export function login(data) {
   return request({
     url: '/user/login/',
@@ -30,6 +29,6 @@ export function logout() {
 export function fetchCaptcha() {
   return request({
     url: '/user/captcha/',
-    method: 'post',
+    method: 'post'
   })
 }

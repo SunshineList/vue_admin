@@ -3,33 +3,33 @@
     <el-table
       :data="tableData"
       border
-      style="width: 100%">
+      style="width: 100%"
+    >
 
       <el-table-column
         prop="id"
         label="序号"
         width="auto"
-      >
-      </el-table-column>
+      />
 
       <el-table-column
         prop="uuid_name"
         label="文件uuid"
         width="auto"
-      >
-      </el-table-column>
+      />
 
       <el-table-column
         prop="name"
         label="文件名称"
-        width="auto">
-      </el-table-column>
+        width="auto"
+      />
 
       <el-table-column
         label="url"
-        width="auto">
+        width="auto"
+      >
         <template #default="scope">
-          <el-avatar :src="scope.row.url" style="width: 100px; height: 100px"></el-avatar>
+          <el-avatar :src="scope.row.url" style="width: 100px; height: 100px" />
         </template>
       </el-table-column>
 
@@ -39,12 +39,16 @@
 </template>
 
 <script>
-import {getFileList} from "@/api/file"
+import { getFileList } from '@/api/file'
 export default {
   data() {
     return {
       tableData: []
     }
+  },
+
+  created() {
+    this.getFileList()
   },
   methods: {
 
@@ -52,13 +56,8 @@ export default {
       getFileList().then((response) => {
         this.tableData = response.results
       })
-    },
+    }
 
-
-  },
-
-  created() {
-    this.getFileList()
   }
 }
 </script>

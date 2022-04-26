@@ -1,7 +1,13 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
-             label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
 
       <div class="title-container">
         <h3 class="title">后台管理系统</h3>
@@ -9,7 +15,7 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user"/>
+          <svg-icon icon-class="user" />
         </span>
         <el-input
           ref="username"
@@ -24,7 +30,7 @@
 
       <el-form-item prop="password">
         <span class="svg-container">
-          <svg-icon icon-class="password"/>
+          <svg-icon icon-class="password" />
         </span>
         <el-input
           :key="passwordType"
@@ -38,24 +44,33 @@
           @keyup.enter="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
       <el-form-item prop="captcha">
         <el-row>
           <el-col :span="12">
-            <el-input v-model="loginForm.captcha" placeholder="验证码"></el-input>
+            <el-input v-model="loginForm.captcha" placeholder="验证码" />
           </el-col>
           <el-col :span="12">
-            <img v-if="captchaImage" :src="captchaImage" @click="fetchCaptcha" title="点击刷新验证码"
-                 style="height:47px;float:right;width: 70%"/>
+            <img
+              v-if="captchaImage"
+              :src="captchaImage"
+              title="点击刷新验证码"
+              style="height:47px;float:right;width: 70%"
+              @click="fetchCaptcha"
+            >
           </el-col>
         </el-row>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;"
-                 @click.prevent="handleLogin">登录
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        @click.prevent="handleLogin"
+      >登录
       </el-button>
 
     </el-form>
@@ -64,7 +79,7 @@
 
 <script>
 
-import {fetchCaptcha} from '@/api/user'
+import { fetchCaptcha } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -74,28 +89,31 @@ export default {
         username: 'admin',
         password: '1234qwer',
         captcha: '',
-        captcha_id: '',
+        captcha_id: ''
       },
       loginRules: {
-        username: [{required: true, trigger: 'blur', message: '用户名不能为空'}],
-        password: [{required: true, trigger: 'blur', message: '密码不能为空'}],
-        captcha: [{required: true, trigger: 'blur', message: '验证码不能为空'}]
+        username: [{ required: true, trigger: 'blur', message: '用户名不能为空' }],
+        password: [{ required: true, trigger: 'blur', message: '密码不能为空' }],
+        captcha: [{ required: true, trigger: 'blur', message: '验证码不能为空' }]
 
       },
       loading: false,
       passwordType: 'password',
-      redirect: "/",
+      redirect: '/',
       captchaImage: ''
 
     }
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
     }
+  },
+  created() {
+    this.fetchCaptcha()
   },
   methods: {
     showPwd() {
@@ -119,7 +137,7 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', user).then(() => {
-            this.$router.push({path: this.redirect || '/'})
+            this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -133,14 +151,11 @@ export default {
         }
       })
     },
-    async fetchCaptcha(){
-      const {captcha_id, image_base} = await fetchCaptcha()
+    async fetchCaptcha() {
+      const { captcha_id, image_base } = await fetchCaptcha()
       this.captchaImage = image_base
       this.loginForm.captcha_id = captcha_id
     }
-  },
-  created() {
-    this.fetchCaptcha()
   }
 }
 </script>

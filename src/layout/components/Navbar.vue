@@ -1,14 +1,14 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar"/>
+    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container"/>
+    <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar_url" class="user-avatar">
-          <i class="el-icon-caret-bottom"/>
+          <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      avatar_url: this.avatar ? this.avatar : "https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640"
+      avatar_url: this.avatar ? this.avatar : 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640'
     }
   },
   methods: {

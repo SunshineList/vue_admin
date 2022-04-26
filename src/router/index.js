@@ -1,6 +1,5 @@
 import Router from 'vue-router'
 
-
 /* Layout */
 import Layout from '@/layout'
 
@@ -49,7 +48,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: {title: '控制台', icon: 'dashboard'}
+      meta: { title: '控制台', icon: 'dashboard' }
     }]
   },
 
@@ -61,7 +60,7 @@ export const constantRoutes = [
       component: () => import('@/views/user/index'),
       name: 'Account',
       path: 'account',
-      meta: {title: '用户管理', icon: 'user'},
+      meta: { title: '用户管理', icon: 'user' }
     }]
   },
 
@@ -73,11 +72,9 @@ export const constantRoutes = [
       component: () => import('@/views/file/index'),
       name: 'File',
       path: 'file',
-      meta: {title: '文件管理', icon: 'table'},
+      meta: { title: '文件管理', icon: 'table' }
     }]
   },
-
-
 
   // {
   //   path: '/nested',
@@ -139,12 +136,12 @@ export const constantRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  {path: '*', redirect: '/404', hidden: true}
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
 

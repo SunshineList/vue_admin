@@ -14,10 +14,9 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-
 const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(ElementPlus)
 
-app.component('svg-icon', SvgIcon)
+app.component('SvgIcon', SvgIcon)

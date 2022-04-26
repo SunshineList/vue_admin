@@ -1,6 +1,6 @@
-import {login, logout, getInfo} from '@/api/user'
-import {getToken, setToken, removeToken} from '@/utils/auth'
-import {resetRouter} from '@/router'
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
@@ -29,8 +29,8 @@ const mutations = {
 
 const actions = {
   // 用户登陆
-  login({commit}, userInfo) {
-    const {username, password, captcha, captcha_id} = userInfo
+  login({ commit }, userInfo) {
+    const { username, password, captcha, captcha_id } = userInfo
     return new Promise((resolve, reject) => {
       login({
         username: username.trim(),
@@ -48,7 +48,7 @@ const actions = {
   },
 
   // get user info
-  getInfo({commit, state}) {
+  getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(data => {
         if (!data) {
@@ -64,7 +64,7 @@ const actions = {
   },
 
   // user logout
-  logout({commit, state}) {
+  logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
@@ -78,7 +78,7 @@ const actions = {
   },
 
   // remove token
-  resetToken({commit}) {
+  resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
       commit('RESET_STATE')
