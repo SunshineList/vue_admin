@@ -62,7 +62,7 @@
       <el-table-column
         label="头像"
         width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-avatar :src="scope.row.avatar" style="width: 100px; height: 100px"></el-avatar>
         </template>
       </el-table-column>
@@ -82,7 +82,7 @@
         prop="gender"
         label="性别"
         :formatter="formatterGender">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag
             type="success"
             disable-transitions>{{ formatterGender(scope.row.gender) }}
@@ -93,7 +93,7 @@
       <el-table-column
         prop="get_user_type_display"
         label="用户类型">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag
             type="success"
             disable-transitions>{{ scope.row.get_user_type_display }}
@@ -104,7 +104,7 @@
       <el-table-column
         prop="is_active"
         label="状态">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-tag
             :type="scope.row.is_active === '1' ? 'primary' : 'error'"
             disable-transitions>{{ formatterActive(scope.row.is_active) }}
@@ -113,7 +113,7 @@
       </el-table-column>
 
       <el-table-column label="操作">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-button
             size="mini"
             type="primary"

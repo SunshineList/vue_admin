@@ -28,7 +28,7 @@
       <el-table-column
         label="url"
         width="auto">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-avatar :src="scope.row.url" style="width: 100px; height: 100px"></el-avatar>
         </template>
       </el-table-column>
