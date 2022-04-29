@@ -7,7 +7,7 @@ import SvgIcon from '@/components/SvgIcon'// svg component
 
 import '@/styles/index.scss' // global css
 
-import App from './App'
+import App from './App.vue'
 import store from './store'
 import router from './router'
 
@@ -20,3 +20,4 @@ app.use(store)
 app.use(ElementPlus)
 
 app.component('SvgIcon', SvgIcon)
+app.mount('#app')

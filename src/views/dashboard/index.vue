@@ -21,7 +21,7 @@
           <el-table-column prop="date" label="日期" width="180" />
           <el-table-column prop="fengli" label="风力" width="180">
             <template #default="scope">
-              {{ scope.row.fengli | handleFengli }}
+              {{ handleFengli(scope.row.fengli) }}
             </template>
           </el-table-column>
           <el-table-column prop="fengxiang" label="风向" />
@@ -167,6 +167,7 @@ function handleFengli(value) {
   const reg = /[1-9][0-9]*/g
   return value.match(reg) + '级'
 }
+
 </script>
 
 <style lang="scss">
