@@ -6,7 +6,7 @@
 
       </el-avatar>
       <div class="title">
-        <h1>{{ time_text }} 开始您一天的工作吧！ 当前IP地址：{{ ip }}</h1>
+        <h1>{{ time_text }} {{name}} 开始您一天的工作吧！ 当前IP地址：{{ ip }}</h1>
         <span> <span style="font-size: 18px; color: #2f74ff">{{ city }}</span> {{ todayTemp }}</span>
       </div>
     </div>
@@ -102,9 +102,9 @@ export default {
       let text = ``;
       if (hours >= 0 && hours <= 10) {
         text = `早上好`;
-      } else if (hours > 10 && hours <= 14) {
+      } else if (hours > 10 && hours <= 12) {
         text = `中午好`;
-      } else if (hours > 14 && hours <= 18) {
+      } else if (hours > 13 && hours <= 18) {
         text = `下午好`;
       } else if (hours > 18 && hours <= 24) {
         text = `晚上好`;

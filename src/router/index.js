@@ -58,7 +58,7 @@ export const constantRoutes = [
   {
     path: '/account',
     component: Layout,
-    redirect: '/account/index',
+    redirect: '/index',
     children: [{
       component: () => import('@/views/user/index'),
       name: 'Account',
@@ -70,7 +70,7 @@ export const constantRoutes = [
   {
     path: '/fileList',
     component: Layout,
-    redirect: '/file/index',
+    redirect: '/index',
     children: [{
       component: () => import('@/views/file/index'),
       name: 'File',
