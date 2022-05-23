@@ -79,6 +79,18 @@ export const constantRoutes = [
     }]
   },
 
+    {
+    path: '/demo',
+    component: Layout,
+    redirect: '/demo',
+    children: [{
+      component: () => import('@/components/Table/index'),
+      name: 'demo',
+      path: 'demo',
+      meta: {title: '测试页面', icon: 'table'},
+    }]
+  },
+
 
 
   // {

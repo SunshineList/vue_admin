@@ -1,10 +1,6 @@
 <template>
   <div class="account-container">
-    <el-table
-      :data="tableData"
-      border
-      style="width: 100%">
-
+    <Table :list="tableData" :total="count">
       <el-table-column
         prop="id"
         label="序号"
@@ -29,31 +25,37 @@
         label="url"
         width="auto">
         <template slot-scope="scope">
-          <el-avatar :src="scope.row.url" style="width: 100px; height: 100px"></el-avatar>
+<!--          <el-avatar :src="scope.row.url" style="width: 100px; height: 100px"></el-avatar>-->
+          <img :src="scope.row.url" class="table-column-icon"/>
         </template>
       </el-table-column>
-
-    </el-table>
+    </Table>
   </div>
 
 </template>
 
 <script>
 import {getFileList} from "@/api/file"
+import Table from '@/components/Table'
+
 export default {
+  components: {
+    Table
+  },
+
   data() {
     return {
-      tableData: []
+      tableData: [],
+      count: 0
     }
   },
   methods: {
-
     async getFileList() {
       getFileList().then((response) => {
         this.tableData = response.results
+        this.count = response.count
       })
     },
-
 
   },
 
@@ -67,6 +69,11 @@ export default {
 .account-container {
   margin: 30px;
   background-color: #f0f2f5;
+}
+
+.table-column-icon {
+  max-width: 100px;
+  max-height: 100px;
 }
 
 </style>
