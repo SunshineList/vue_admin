@@ -1,6 +1,29 @@
 <template>
   <div class="account-container">
     <Table :list="tableData" :total="count">
+
+      <template v-slot:search-slot>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+          <div>
+            <el-input placeholder="哈哈哈哈" style="width: 200px;" class="filter-item"/>
+            <el-button type="primary">搜索</el-button>
+          </div>
+          <div>
+            <el-input placeholder="哈哈哈哈" style="width: 200px;" class="filter-item"/>
+            <el-button type="primary">搜索</el-button>
+          </div>
+          <div>
+            <el-input placeholder="哈哈哈哈" style="width: 200px;" class="filter-item"/>
+            <el-button type="primary">搜索</el-button>
+          </div>
+          <div>
+            <el-input placeholder="哈哈哈哈" style="width: 200px;" class="filter-item"/>
+            <el-button type="primary">搜索</el-button>
+          </div>
+        </div>
+
+      </template>
+
       <el-table-column
         prop="id"
         label="序号"
@@ -74,6 +97,10 @@ export default {
 .table-column-icon {
   max-width: 100px;
   max-height: 100px;
+}
+
+.filter-item{
+  padding-right: 20px;
 }
 
 </style>

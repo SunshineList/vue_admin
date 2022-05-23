@@ -1,12 +1,15 @@
 <template>
   <div>
     <div class="filter-container">
-      <slot>
+
+      <slot name="search-slot">
         <!-- 搜索 -->
         <el-input v-model="listQuery.title" placeholder="搜索" style="width: 200px;" class="filter-item"
                   @keyup.enter.native="handleFilter"/>
       </slot>
+
     </div>
+
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -48,6 +51,7 @@ export default {
         return {
           page: 1,
           limit: 10,
+          title: ''
         }
       }
     },
